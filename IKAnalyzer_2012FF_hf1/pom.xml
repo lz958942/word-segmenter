@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>word-segmenter</artifactId>
         <groupId>net.lizhaoweb</groupId>
-        <version>1.0.0.0.1-SNAPSHOT</version>
+        <artifactId>word-segmenter</artifactId>
+        <version>1.0.0.0.1</version>
     </parent>
 
     <name>LiZhao WordSegmenter IKAnalyzer_2012FF_hf1</name>
     <groupId>net.lizhaoweb.wordsegmenter</groupId>
-    <artifactId>IKAnalyzer_2012FF_hf1</artifactId>
+    <artifactId>IKAnalyzer</artifactId>
+    <version>2012FF-hf1</version>
 
     <properties>
         <lucene.version>4.10.4</lucene.version>
