@@ -75,6 +75,7 @@ public class Dictionary {
      * 只有当Dictionary类被实际调用时，才会开始载入词典，
      * 这将延长首次分词操作的时间
      * 该方法提供了一个在应用加载阶段就初始化字典的手段
+     *
      * @return Dictionary
      */
     public static Dictionary initial(Configuration cfg) {
@@ -91,6 +92,7 @@ public class Dictionary {
 
     /**
      * 获取词典单子实例
+     *
      * @return Dictionary 单例对象
      */
     public static Dictionary getSingleton() {
@@ -102,6 +104,7 @@ public class Dictionary {
 
     /**
      * 批量加载新词条
+     *
      * @param words Collection<String>词条列表
      */
     public void addWords(Collection<String> words) {
@@ -117,6 +120,7 @@ public class Dictionary {
 
     /**
      * 批量移除（屏蔽）词条
+     *
      * @param words
      */
     public void disableWords(Collection<String> words) {
@@ -132,6 +136,7 @@ public class Dictionary {
 
     /**
      * 检索匹配主词典
+     *
      * @param charArray
      * @return Hit 匹配结果描述
      */
@@ -141,6 +146,7 @@ public class Dictionary {
 
     /**
      * 检索匹配主词典
+     *
      * @param charArray
      * @param begin
      * @param length
@@ -152,6 +158,7 @@ public class Dictionary {
 
     /**
      * 检索匹配量词词典
+     *
      * @param charArray
      * @param begin
      * @param length
@@ -164,6 +171,7 @@ public class Dictionary {
 
     /**
      * 从已匹配的Hit中直接取出DictSegment，继续向下匹配
+     *
      * @param charArray
      * @param currentIndex
      * @param matchedHit
@@ -177,6 +185,7 @@ public class Dictionary {
 
     /**
      * 判断是否是停止词
+     *
      * @param charArray
      * @param begin
      * @param length
@@ -356,5 +365,4 @@ public class Dictionary {
             }
         }
     }
-
 }

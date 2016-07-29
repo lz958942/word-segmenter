@@ -34,13 +34,13 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * IK简易查询表达式解析 
+ * IK简易查询表达式解析
  * 结合SWMCQuery算法
- *
+ * <p>
  * 表达式例子 ：
  * (id='1231231' && title:'monkey') || (content:'你好吗'  || ulr='www.ik.com') - name:'helloword'
- * @author linliangyi
  *
+ * @author linliangyi
  */
 public class IKQueryExpressionParser {
 
@@ -83,6 +83,7 @@ public class IKQueryExpressionParser {
 
     /**
      * 表达式文法解析
+     *
      * @param expression
      */
     private void splitElements(String expression) {
@@ -353,7 +354,6 @@ public class IKQueryExpressionParser {
 
     /**
      * 语法解析
-     *
      */
     private void parseSyntax(boolean quickMode) {
         for (int i = 0; i < this.elements.size(); i++) {
@@ -452,6 +452,7 @@ public class IKQueryExpressionParser {
 
     /**
      * 根据逻辑操作符，生成BooleanQuery
+     *
      * @param op
      * @return
      */
@@ -584,6 +585,7 @@ public class IKQueryExpressionParser {
 
     /**
      * 组装TermRangeQuery
+     *
      * @param elements
      * @return
      */
@@ -649,6 +651,7 @@ public class IKQueryExpressionParser {
 
     /**
      * 比较操作符优先级
+     *
      * @param e1
      * @param e2
      * @return
@@ -679,8 +682,9 @@ public class IKQueryExpressionParser {
 
     /**
      * 表达式元素（操作符、FieldName、FieldValue）
+     *
      * @author linliangyi
-     * May 20, 2010
+     *         May 20, 2010
      */
     private class Element {
         char type = 0;
@@ -707,5 +711,4 @@ public class IKQueryExpressionParser {
         System.out.println(result);
 
     }
-
 }

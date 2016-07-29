@@ -32,7 +32,7 @@ import java.util.List;
 
 
 /**
- *  中文-日韩文子分词器
+ * 中文-日韩文子分词器
  */
 class CJKSegmenter implements ISegmenter {
 
@@ -91,8 +91,6 @@ class CJKSegmenter implements ISegmenter {
                 //前缀匹配则放入hit列表
                 this.tmpHits.add(singleCharHit);
             }
-
-
         } else {
             //遇到CHAR_USELESS字符
             //清空队列
@@ -121,5 +119,4 @@ class CJKSegmenter implements ISegmenter {
         //清空队列
         this.tmpHits.clear();
     }
-
 }

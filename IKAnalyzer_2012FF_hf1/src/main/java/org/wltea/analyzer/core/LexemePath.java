@@ -44,6 +44,7 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
 
     /**
      * 向LexemePath追加相交的Lexeme
+     *
      * @param lexeme
      * @return
      */
@@ -54,7 +55,6 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
             this.pathEnd = lexeme.getBegin() + lexeme.getLength();
             this.payloadLength += lexeme.getLength();
             return true;
-
         } else if (this.checkCross(lexeme)) {
             this.addLexeme(lexeme);
             if (lexeme.getBegin() + lexeme.getLength() > this.pathEnd) {
@@ -62,15 +62,14 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
             }
             this.payloadLength = this.pathEnd - this.pathBegin;
             return true;
-
         } else {
             return false;
-
         }
     }
 
     /**
      * 向LexemePath追加不相交的Lexeme
+     *
      * @param lexeme
      * @return
      */
@@ -81,10 +80,8 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
             this.pathEnd = lexeme.getBegin() + lexeme.getLength();
             this.payloadLength += lexeme.getLength();
             return true;
-
         } else if (this.checkCross(lexeme)) {
             return false;
-
         } else {
             this.addLexeme(lexeme);
             this.payloadLength += lexeme.getLength();
@@ -93,12 +90,12 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
             Lexeme tail = this.peekLast();
             this.pathEnd = tail.getBegin() + tail.getLength();
             return true;
-
         }
     }
 
     /**
      * 移除尾部的Lexeme
+     *
      * @return
      */
     Lexeme removeTail() {
@@ -117,6 +114,7 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
 
     /**
      * 检测词元位置交叉（有歧义的切分）
+     *
      * @param lexeme
      * @return
      */
@@ -135,6 +133,7 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
 
     /**
      * 获取Path的有效词长
+     *
      * @return
      */
     int getPayloadLength() {
@@ -143,6 +142,7 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
 
     /**
      * 获取LexemePath的路径长度
+     *
      * @return
      */
     int getPathLength() {
@@ -152,6 +152,7 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
 
     /**
      * X权重（词元长度积）
+     *
      * @return
      */
     int getXWeight() {
@@ -166,6 +167,7 @@ class LexemePath extends QuickSortSet implements Comparable<LexemePath> {
 
     /**
      * 词元位置权重
+     *
      * @return
      */
     int getPWeight() {

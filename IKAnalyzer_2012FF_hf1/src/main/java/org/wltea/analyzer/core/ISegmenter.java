@@ -41,5 +41,4 @@ interface ISegmenter {
      * 重置子分析器状态
      */
     void reset();
-
 }
