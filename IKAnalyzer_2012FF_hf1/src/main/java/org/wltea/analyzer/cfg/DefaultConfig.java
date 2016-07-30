@@ -23,6 +23,8 @@
  */
 package org.wltea.analyzer.cfg;
 
+import org.wltea.analyzer.util.Constant;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,33 +38,27 @@ import java.util.Properties;
  */
 public class DefaultConfig implements Configuration {
 
-    //分词器默认字典路径
-    private static final String PATH_DIC_MAIN = "org.wltea.analyzer.dic/main2012.dic";
-    private static final String PATH_DIC_QUANTIFIER = "org.wltea.analyzer.dic/quantifier.dic";
-
-    //分词器配置文件路径
-    private static final String FILE_NAME = "IKAnalyzer.cfg.xml";
-
-    //配置属性——扩展字典
-    private static final String EXT_DICT = "ext_dict";
-
-    //配置属性——扩展停止词典
-    private static final String EXT_STOP = "ext_stopwords";
-
     private Properties props;
 
     //是否使用smart方式分词
     private boolean useSmart;
 
-    /**
-     * 返回单例
-     *
-     * @return Configuration单例
+    /*
+     * 构造函数 - 初始化配置文件
      */
-    public static Configuration getInstance() {
-        return new DefaultConfig();
+    private DefaultConfig() {
+        props = new Properties();
+        InputStream input = this.getClass().getClassLoader().getResourceAsStream(Constant.Configure.Path.FILE);
+        if (input != null) {
+            try {
+                props.loadFromXML(input);
+            } catch (InvalidPropertiesFormatException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
 
     /**
      * 返回useSmart标志位
@@ -70,6 +66,7 @@ public class DefaultConfig implements Configuration {
      *
      * @return useSmart
      */
+    @Override
     public boolean useSmart() {
         return useSmart;
     }
@@ -80,6 +77,7 @@ public class DefaultConfig implements Configuration {
      *
      * @param useSmart
      */
+    @Override
     public void setUseSmart(boolean useSmart) {
         this.useSmart = useSmart;
     }
@@ -89,8 +87,9 @@ public class DefaultConfig implements Configuration {
      *
      * @return String 主词典路径
      */
+    @Override
     public String getMainDictionary() {
-        return PATH_DIC_MAIN;
+        return Constant.Configure.Path.Dictionary.Default.MAIN;
     }
 
     /**
@@ -98,8 +97,9 @@ public class DefaultConfig implements Configuration {
      *
      * @return String 量词词典路径
      */
+    @Override
     public String getQuantifierDicionary() {
-        return PATH_DIC_QUANTIFIER;
+        return Constant.Configure.Path.Dictionary.Default.QUANTIFIER;
     }
 
     /**
@@ -107,9 +107,10 @@ public class DefaultConfig implements Configuration {
      *
      * @return List<String> 相对类加载器的路径
      */
+    @Override
     public List<String> getExtDictionarys() {
         List<String> extDictFiles = new ArrayList<String>(2);
-        String extDictCfg = props.getProperty(EXT_DICT);
+        String extDictCfg = props.getProperty(Constant.Configure.Attribute.ExtendDictionary.KEY);
         if (extDictCfg != null) {
             //使用;分割多个扩展字典配置
             String[] filePaths = extDictCfg.split(";");
@@ -124,15 +125,15 @@ public class DefaultConfig implements Configuration {
         return extDictFiles;
     }
 
-
     /**
      * 获取扩展停止词典配置路径
      *
      * @return List<String> 相对类加载器的路径
      */
+    @Override
     public List<String> getExtStopWordDictionarys() {
         List<String> extStopWordDictFiles = new ArrayList<String>(2);
-        String extStopWordDictCfg = props.getProperty(EXT_STOP);
+        String extStopWordDictCfg = props.getProperty(Constant.Configure.Attribute.StopWordDictionary.KEY);
         if (extStopWordDictCfg != null) {
             //使用;分割多个扩展字典配置
             String[] filePaths = extStopWordDictCfg.split(";");
@@ -147,19 +148,12 @@ public class DefaultConfig implements Configuration {
         return extStopWordDictFiles;
     }
 
-    //初始化配置文件
-    private DefaultConfig() {
-        props = new Properties();
-
-        InputStream input = this.getClass().getClassLoader().getResourceAsStream(FILE_NAME);
-        if (input != null) {
-            try {
-                props.loadFromXML(input);
-            } catch (InvalidPropertiesFormatException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    /**
+     * 返回单例
+     *
+     * @return Configuration单例
+     */
+    public static Configuration getInstance() {
+        return new DefaultConfig();
     }
 }

@@ -37,7 +37,6 @@ class DictSegment implements Comparable<DictSegment> {
     //数组大小上限
     private static final int ARRAY_LENGTH_LIMIT = 3;
 
-
     //Map存储结构
     private Map<Character, DictSegment> childrenMap;
     //数组方式存储结构
@@ -131,7 +130,6 @@ class DictSegment implements Comparable<DictSegment> {
             if (position >= 0) {
                 ds = segmentArray[position];
             }
-
         } else if (segmentMap != null) {
             //在map中查找
             ds = (DictSegment) segmentMap.get(keyChar);
@@ -212,7 +210,6 @@ class DictSegment implements Comparable<DictSegment> {
                 ds.nodeState = enabled;
             }
         }
-
     }
 
     /**
@@ -245,7 +242,6 @@ class DictSegment implements Comparable<DictSegment> {
                     //segment数目+1
                     this.storeSize++;
                     Arrays.sort(segmentArray, 0, this.storeSize);
-
                 } else {
                     //数组容量已满，切换Map存储
                     //获取Map容器，如果Map未创建,则创建Map
@@ -259,9 +255,7 @@ class DictSegment implements Comparable<DictSegment> {
                     //释放当前的数组引用
                     this.childrenArray = null;
                 }
-
             }
-
         } else {
             //获取Map容器，如果Map未创建,则创建Map
             Map<Character, DictSegment> segmentMap = getChildrenMap();
@@ -275,10 +269,8 @@ class DictSegment implements Comparable<DictSegment> {
                 this.storeSize++;
             }
         }
-
         return ds;
     }
-
 
     /**
      * 获取数组容器
@@ -329,6 +321,7 @@ class DictSegment implements Comparable<DictSegment> {
      * @param o
      * @return int
      */
+    @Override
     public int compareTo(DictSegment o) {
         //对当前节点存储的char进行比较
         return this.nodeChar.compareTo(o.nodeChar);

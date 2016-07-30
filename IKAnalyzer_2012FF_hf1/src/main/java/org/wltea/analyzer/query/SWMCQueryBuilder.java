@@ -88,7 +88,6 @@ public class SWMCQueryBuilder {
      * 根据分词结果生成SWMC搜索
      *
      * @param fieldName
-     * @param pathOption
      * @param quickMode
      * @return
      */
@@ -138,7 +137,6 @@ public class SWMCQueryBuilder {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         } else {
             if (keywordBuffer.length() > 0) {
                 try {

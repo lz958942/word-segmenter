@@ -26,6 +26,7 @@ package org.wltea.analyzer.core;
 
 import org.wltea.analyzer.dic.Dictionary;
 import org.wltea.analyzer.dic.Hit;
+import org.wltea.analyzer.util.Constant;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,19 +37,17 @@ import java.util.List;
  */
 class CJKSegmenter implements ISegmenter {
 
-    //子分词器标签
-    static final String SEGMENTER_NAME = "CJK_SEGMENTER";
     //待处理的分词hit队列
     private List<Hit> tmpHits;
-
 
     CJKSegmenter() {
         this.tmpHits = new LinkedList<Hit>();
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.wltea.analyzer.core.ISegmenter#analyze(org.wltea.analyzer.core.AnalyzeContext)
      */
+    @Override
     public void analyze(AnalyzeContext context) {
         if (CharacterUtil.CHAR_USELESS != context.getCurrentCharType()) {
 
@@ -62,11 +61,9 @@ class CJKSegmenter implements ISegmenter {
                         //输出当前的词
                         Lexeme newLexeme = new Lexeme(context.getBufferOffset(), hit.getBegin(), context.getCursor() - hit.getBegin() + 1, Lexeme.TYPE_CNWORD);
                         context.addLexeme(newLexeme);
-
                         if (!hit.isPrefix()) {//不是词前缀，hit不需要继续匹配，移除
                             this.tmpHits.remove(hit);
                         }
-
                     } else if (hit.isUnmatch()) {
                         //hit不是词，移除
                         this.tmpHits.remove(hit);
@@ -105,16 +102,16 @@ class CJKSegmenter implements ISegmenter {
 
         //判断是否锁定缓冲区
         if (this.tmpHits.size() == 0) {
-            context.unlockBuffer(SEGMENTER_NAME);
-
+            context.unlockBuffer(Constant.Tag.CJK_SEGMENTER);
         } else {
-            context.lockBuffer(SEGMENTER_NAME);
+            context.lockBuffer(Constant.Tag.CJK_SEGMENTER);
         }
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.wltea.analyzer.core.ISegmenter#reset()
      */
+    @Override
     public void reset() {
         //清空队列
         this.tmpHits.clear();

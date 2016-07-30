@@ -32,7 +32,6 @@ import java.util.TreeSet;
 class IKArbitrator {
 
     IKArbitrator() {
-
     }
 
     /**
@@ -67,7 +66,6 @@ class IKArbitrator {
             }
             orgLexeme = orgLexemes.pollFirst();
         }
-
 
         //处理最后的path
         if (crossPath.size() == 1 || !useSmart) {
@@ -115,7 +113,6 @@ class IKArbitrator {
 
         //返回集合中的最优方案
         return pathOptions.first();
-
     }
 
     /**
@@ -150,6 +147,5 @@ class IKArbitrator {
         while (option.checkCross(l)) {
             option.removeTail();
         }
-
     }
 }

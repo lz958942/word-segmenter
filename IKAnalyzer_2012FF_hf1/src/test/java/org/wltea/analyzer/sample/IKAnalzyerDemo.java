@@ -46,6 +46,7 @@ public class IKAnalzyerDemo {
         //获取Lucene的TokenStream对象
         TokenStream ts = null;
         try {
+            long start = System.currentTimeMillis();
             ts = analyzer.tokenStream("myfield", new StringReader("这是一个中文分词的例子，你可以直接运行它！IKAnalyer can analysis english text too"));
             //获取词元位置属性
             OffsetAttribute offset = ts.addAttribute(OffsetAttribute.class);
@@ -54,6 +55,7 @@ public class IKAnalzyerDemo {
             //获取词元文本属性
             TypeAttribute type = ts.addAttribute(TypeAttribute.class);
 
+            System.out.println("分词用时 " + (System.currentTimeMillis() - start) + "毫秒");
 
             //重置TokenStream（重置StringReader）
             ts.reset();
@@ -64,6 +66,7 @@ public class IKAnalzyerDemo {
             //关闭TokenStream（关闭StringReader）
             ts.end();   // Perform end-of-stream operations, e.g. set the final offset.
 
+            System.out.println("总用时 " + (System.currentTimeMillis() - start) + "毫秒");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

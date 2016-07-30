@@ -48,7 +48,6 @@ public final class IKSegmenter {
     //分词歧义裁决器
     private IKArbitrator arbitrator;
 
-
     /**
      * IK分词器构造函数
      *
@@ -126,7 +125,6 @@ public final class IKSegmenter {
                 //reader已经读完
                 context.reset();
                 return null;
-
             } else {
                 //初始化指针
                 context.initCursor();

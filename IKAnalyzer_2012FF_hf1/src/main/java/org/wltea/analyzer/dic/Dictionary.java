@@ -37,7 +37,6 @@ import java.util.List;
  */
 public class Dictionary {
 
-
     /*
      * 词典单子实例
      */
@@ -168,7 +167,6 @@ public class Dictionary {
         return singleton._QuantifierDict.match(charArray, begin, length);
     }
 
-
     /**
      * 从已匹配的Hit中直接取出DictSegment，继续向下匹配
      *
@@ -181,7 +179,6 @@ public class Dictionary {
         DictSegment ds = matchedHit.getMatchedDictSegment();
         return ds.match(charArray, currentIndex, 1, matchedHit);
     }
-
 
     /**
      * 判断是否是停止词
@@ -216,11 +213,9 @@ public class Dictionary {
                     _MainDict.fillSegment(theWord.trim().toLowerCase().toCharArray());
                 }
             } while (theWord != null);
-
         } catch (IOException ioe) {
             System.err.println("Main Dictionary loading exception.");
             ioe.printStackTrace();
-
         } finally {
             try {
                 if (is != null) {
@@ -262,11 +257,9 @@ public class Dictionary {
                             _MainDict.fillSegment(theWord.trim().toLowerCase().toCharArray());
                         }
                     } while (theWord != null);
-
                 } catch (IOException ioe) {
                     System.err.println("Extension Dictionary loading exception.");
                     ioe.printStackTrace();
-
                 } finally {
                     try {
                         if (is != null) {
@@ -310,11 +303,9 @@ public class Dictionary {
                             _StopWordDict.fillSegment(theWord.trim().toLowerCase().toCharArray());
                         }
                     } while (theWord != null);
-
                 } catch (IOException ioe) {
                     System.err.println("Extension Stop word Dictionary loading exception.");
                     ioe.printStackTrace();
-
                 } finally {
                     try {
                         if (is != null) {
@@ -349,11 +340,9 @@ public class Dictionary {
                     _QuantifierDict.fillSegment(theWord.trim().toLowerCase().toCharArray());
                 }
             } while (theWord != null);
-
         } catch (IOException ioe) {
             System.err.println("Quantifier Dictionary loading exception.");
             ioe.printStackTrace();
-
         } finally {
             try {
                 if (is != null) {

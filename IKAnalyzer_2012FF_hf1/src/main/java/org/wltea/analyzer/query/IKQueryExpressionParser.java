@@ -33,12 +33,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-/**
+/**z
  * IK简易查询表达式解析
  * 结合SWMCQuery算法
  * <p>
  * 表达式例子 ：
- * (id='1231231' && title:'monkey') || (content:'你好吗'  || ulr='www.ik.com') - name:'helloword'
+ * (id='1231231' && title:'monkey') || (content:'你好吗'  || ulr='www.ik.com') - name:'helloword'x
  *
  * @author linliangyi
  */
@@ -114,7 +114,6 @@ public class IKQueryExpressionParser {
                         curretElement.append(expChars[i]);
                     }
                     break;
-
                 case '|':
                     if (curretElement == null) {
                         curretElement = new Element();
@@ -133,7 +132,6 @@ public class IKQueryExpressionParser {
                         curretElement.append(expChars[i]);
                     }
                     break;
-
                 case '-':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -149,7 +147,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case '(':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -165,7 +162,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case ')':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -181,7 +177,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case ':':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -197,7 +192,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case '=':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -213,7 +207,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case ' ':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -223,9 +216,7 @@ public class IKQueryExpressionParser {
                             curretElement = null;
                         }
                     }
-
                     break;
-
                 case '\'':
                     if (curretElement == null) {
                         curretElement = new Element();
@@ -242,7 +233,6 @@ public class IKQueryExpressionParser {
 
                     }
                     break;
-
                 case '[':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -258,7 +248,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case ']':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -273,9 +262,7 @@ public class IKQueryExpressionParser {
                     curretElement.append(expChars[i]);
                     this.elements.add(curretElement);
                     curretElement = null;
-
                     break;
-
                 case '{':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -291,7 +278,6 @@ public class IKQueryExpressionParser {
                     this.elements.add(curretElement);
                     curretElement = null;
                     break;
-
                 case '}':
                     if (curretElement != null) {
                         if (curretElement.type == '\'') {
@@ -306,7 +292,6 @@ public class IKQueryExpressionParser {
                     curretElement.append(expChars[i]);
                     this.elements.add(curretElement);
                     curretElement = null;
-
                     break;
                 case ',':
                     if (curretElement != null) {
@@ -322,9 +307,7 @@ public class IKQueryExpressionParser {
                     curretElement.append(expChars[i]);
                     this.elements.add(curretElement);
                     curretElement = null;
-
                     break;
-
                 default:
                     if (curretElement == null) {
                         curretElement = new Element();
@@ -376,7 +359,6 @@ public class IKQueryExpressionParser {
                         Query _SWMCQuery = SWMCQueryBuilder.create(e.toString(), keyword, quickMode);
                         this.querys.push(_SWMCQuery);
                     }
-
                 } else if ('[' == e3.type || '{' == e3.type) {
                     i += 2;
                     //处理 [] 和 {}
@@ -395,10 +377,8 @@ public class IKQueryExpressionParser {
                 } else {
                     throw new IllegalStateException("表达式异常：匹配值丢失");
                 }
-
             } else if ('(' == e.type) {
                 this.operates.push(e);
-
             } else if (')' == e.type) {
                 boolean doPop = true;
                 while (doPop && !this.operates.empty()) {
@@ -409,10 +389,8 @@ public class IKQueryExpressionParser {
                         Query q = toBooleanQuery(op);
                         this.querys.push(q);
                     }
-
                 }
             } else {
-
                 if (this.operates.isEmpty()) {
                     this.operates.push(e);
                 } else {
@@ -481,7 +459,6 @@ public class IKQueryExpressionParser {
                     } else {
                         resultQuery.add(q1, Occur.MUST);
                     }
-
                 } else {
                     //q1 instanceof TermQuery
                     //q1 instanceof TermRangeQuery
@@ -502,7 +479,6 @@ public class IKQueryExpressionParser {
                     } else {
                         resultQuery.add(q2, Occur.MUST);
                     }
-
                 } else {
                     //q1 instanceof TermQuery
                     //q1 instanceof TermRangeQuery
@@ -524,7 +500,6 @@ public class IKQueryExpressionParser {
                     } else {
                         resultQuery.add(q1, Occur.SHOULD);
                     }
-
                 } else {
                     //q1 instanceof TermQuery
                     //q1 instanceof TermRangeQuery
@@ -551,7 +526,6 @@ public class IKQueryExpressionParser {
                     //q2 instanceof PhraseQuery
                     //others
                     resultQuery.add(q2, Occur.SHOULD);
-
                 }
             }
 
@@ -569,7 +543,6 @@ public class IKQueryExpressionParser {
                 } else {
                     resultQuery.add(q1, Occur.MUST);
                 }
-
             } else {
                 //q1 instanceof TermQuery
                 //q1 instanceof TermRangeQuery
@@ -641,7 +614,6 @@ public class IKQueryExpressionParser {
             } else {
                 throw new IllegalStateException("表达式异常，RangeQuery格式错误");
             }
-
         } else {
             throw new IllegalStateException("表达式异常, RangeQuery格式错误");
         }
@@ -698,6 +670,7 @@ public class IKQueryExpressionParser {
             this.eleTextBuff.append(c);
         }
 
+        @Override
         public String toString() {
             return this.eleTextBuff.toString();
         }
@@ -709,6 +682,5 @@ public class IKQueryExpressionParser {
         String ikQueryExp = "(id='ABcdRf' && date:{'20010101','20110101'} && keyword:'魔兽中国') || (content:'KSHT-KSH-A001-18'  || ulr='www.ik.com') - name:'林良益'";
         Query result = parser.parseExp(ikQueryExp, true);
         System.out.println(result);
-
     }
 }

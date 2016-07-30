@@ -74,6 +74,7 @@ public class LuceneIndexAndSearchDemo {
         IndexReader ireader = null;
         IndexSearcher isearcher = null;
         try {
+            long start = System.currentTimeMillis();
             //建立内存索引对象
             directory = new RAMDirectory();
 
@@ -111,6 +112,7 @@ public class LuceneIndexAndSearchDemo {
                 System.out.println("内容：" + targetDoc.toString());
             }
 
+            System.out.println("总用时 " + (System.currentTimeMillis() - start) + "毫秒");
         } catch (CorruptIndexException e) {
             e.printStackTrace();
         } catch (LockObtainFailedException e) {

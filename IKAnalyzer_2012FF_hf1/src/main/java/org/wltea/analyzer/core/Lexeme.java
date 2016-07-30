@@ -60,7 +60,6 @@ public class Lexeme implements Comparable<Lexeme> {
     //词元类型
     private int lexemeType;
 
-
     public Lexeme(int offset, int begin, int length, int lexemeType) {
         this.offset = offset;
         this.begin = begin;
@@ -69,67 +68,6 @@ public class Lexeme implements Comparable<Lexeme> {
         }
         this.length = length;
         this.lexemeType = lexemeType;
-    }
-
-    /*
-     * 判断词元相等算法
-     * 起始位置偏移、起始位置、终止位置相同
-     * @see java.lang.Object#equals(Object o)
-     */
-    public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-
-        if (this == o) {
-            return true;
-        }
-
-        if (o instanceof Lexeme) {
-            Lexeme other = (Lexeme) o;
-            if (this.offset == other.getOffset()
-                    && this.begin == other.getBegin()
-                    && this.length == other.getLength()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /*
-     * 词元哈希编码算法
-     * @see java.lang.Object#hashCode()
-     */
-    public int hashCode() {
-        int absBegin = getBeginPosition();
-        int absEnd = getEndPosition();
-        return (absBegin * 37) + (absEnd * 31) + ((absBegin * absEnd) % getLength()) * 11;
-    }
-
-    /*
-     * 词元在排序集合中的比较算法
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    public int compareTo(Lexeme other) {
-        //起始位置优先
-        if (this.begin < other.getBegin()) {
-            return -1;
-        } else if (this.begin == other.getBegin()) {
-            //词元长度优先
-            if (this.length > other.getLength()) {
-                return -1;
-            } else if (this.length == other.getLength()) {
-                return 0;
-            } else {//this.length < other.getLength()
-                return 1;
-            }
-
-        } else {//this.begin > other.getBegin()
-            return 1;
-        }
     }
 
     public int getOffset() {
@@ -220,39 +158,28 @@ public class Lexeme implements Comparable<Lexeme> {
      */
     public String getLexemeTypeString() {
         switch (lexemeType) {
-
             case TYPE_ENGLISH:
                 return "ENGLISH";
-
             case TYPE_ARABIC:
                 return "ARABIC";
-
             case TYPE_LETTER:
                 return "LETTER";
-
             case TYPE_CNWORD:
                 return "CN_WORD";
-
             case TYPE_CNCHAR:
                 return "CN_CHAR";
-
             case TYPE_OTHER_CJK:
                 return "OTHER_CJK";
-
             case TYPE_COUNT:
                 return "COUNT";
-
             case TYPE_CNUM:
                 return "TYPE_CNUM";
-
             case TYPE_CQUAN:
                 return "TYPE_CQUAN";
-
             default:
                 return "UNKONW";
         }
     }
-
 
     public void setLexemeType(int lexemeType) {
         this.lexemeType = lexemeType;
@@ -275,10 +202,76 @@ public class Lexeme implements Comparable<Lexeme> {
         }
     }
 
+    /**
+     * 词元哈希编码算法
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int absBegin = getBeginPosition();
+        int absEnd = getEndPosition();
+        return (absBegin * 37) + (absEnd * 31) + ((absBegin * absEnd) % getLength()) * 11;
+    }
+
+    /**
+     * 判断词元相等算法
+     * 起始位置偏移、起始位置、终止位置相同
+     *
+     * @see java.lang.Object#equals(Object o)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o instanceof Lexeme) {
+            Lexeme other = (Lexeme) o;
+            if (this.offset == other.getOffset()
+                    && this.begin == other.getBegin()
+                    && this.length == other.getLength()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 词元在排序集合中的比较算法
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(Lexeme other) {
+        //起始位置优先
+        if (this.begin < other.getBegin()) {
+            return -1;
+        } else if (this.begin == other.getBegin()) {
+            //词元长度优先
+            if (this.length > other.getLength()) {
+                return -1;
+            } else if (this.length == other.getLength()) {
+                return 0;
+            } else {//this.length < other.getLength()
+                return 1;
+            }
+        } else {//this.begin > other.getBegin()
+            return 1;
+        }
+    }
 
     /**
      *
      */
+    @Override
     public String toString() {
         StringBuffer strbuf = new StringBuffer();
         strbuf.append(this.getBeginPosition()).append("-").append(this.getEndPosition());
@@ -286,6 +279,4 @@ public class Lexeme implements Comparable<Lexeme> {
         strbuf.append(this.getLexemeTypeString());
         return strbuf.toString();
     }
-
-
 }

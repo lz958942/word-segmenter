@@ -40,12 +40,10 @@ class AnalyzeContext {
     //缓冲区耗尽的临界值
     private static final int BUFF_EXHAUST_CRITICAL = 100;
 
-
     //字符窜读取缓冲
     private char[] segmentBuff;
     //字符类型数组
     private int[] charTypes;
-
 
     //记录Reader内已分析的字串总长度
     //在分多段分析词元时，该变量累计当前的segmentBuff相对于reader起始位置的位移
@@ -54,7 +52,6 @@ class AnalyzeContext {
     private int cursor;
     //最近一次读入的,可处理的字串长度
     private int available;
-
 
     //子分词器锁
     //该集合非空，说明有子分词器在占用segmentBuff
@@ -83,10 +80,6 @@ class AnalyzeContext {
     int getCursor() {
         return this.cursor;
     }
-//    
-//    void setCursor(int cursor){
-//    	this.cursor = cursor;
-//    }
 
     char[] getSegmentBuff() {
         return this.segmentBuff;
@@ -243,7 +236,6 @@ class AnalyzeContext {
         }
     }
 
-
     /**
      * 返回原始分词结果
      *
@@ -388,7 +380,6 @@ class AnalyzeContext {
                     this.results.pollFirst();
                 }
             }
-
         }
     }
 }

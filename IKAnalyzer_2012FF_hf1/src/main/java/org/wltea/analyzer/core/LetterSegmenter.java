@@ -23,6 +23,8 @@
  */
 package org.wltea.analyzer.core;
 
+import org.wltea.analyzer.util.Constant;
+
 import java.util.Arrays;
 
 /**
@@ -30,8 +32,6 @@ import java.util.Arrays;
  */
 class LetterSegmenter implements ISegmenter {
 
-    //子分词器标签
-    static final String SEGMENTER_NAME = "LETTER_SEGMENTER";
     //链接符号
     private static final char[] Letter_Connector = new char[]{'#', '&', '+', '-', '.', '@', '_'};
 
@@ -82,9 +82,10 @@ class LetterSegmenter implements ISegmenter {
     }
 
 
-    /* (non-Javadoc)
+    /**
      * @see org.wltea.analyzer.core.ISegmenter#analyze(org.wltea.analyzer.core.AnalyzeContext)
      */
+    @Override
     public void analyze(AnalyzeContext context) {
         boolean bufferLockFlag = false;
         //处理英文字母
@@ -96,16 +97,17 @@ class LetterSegmenter implements ISegmenter {
 
         //判断是否锁定缓冲区
         if (bufferLockFlag) {
-            context.lockBuffer(SEGMENTER_NAME);
+            context.lockBuffer(Constant.Tag.LETTER_SEGMENTER);
         } else {
             //对缓冲区解锁
-            context.unlockBuffer(SEGMENTER_NAME);
+            context.unlockBuffer(Constant.Tag.LETTER_SEGMENTER);
         }
     }
 
-    /* (non-Javadoc)
+    /**
      * @see org.wltea.analyzer.core.ISegmenter#reset()
      */
+    @Override
     public void reset() {
         this.start = -1;
         this.end = -1;
@@ -119,8 +121,7 @@ class LetterSegmenter implements ISegmenter {
      * 处理数字字母混合输出
      * 如：windos2000 | linliangyi2005@gmail.com
      *
-     * @param input
-     * @param context
+     * @param context 分词器上下文状态
      * @return
      */
     private boolean processMixLetter(AnalyzeContext context) {
@@ -133,13 +134,11 @@ class LetterSegmenter implements ISegmenter {
                 this.start = context.getCursor();
                 this.end = start;
             }
-
         } else {//当前的分词器正在处理字符
             if (CharacterUtil.CHAR_ARABIC == context.getCurrentCharType()
                     || CharacterUtil.CHAR_ENGLISH == context.getCurrentCharType()) {
                 //记录下可能的结束位置
                 this.end = context.getCursor();
-
             } else if (CharacterUtil.CHAR_USELESS == context.getCurrentCharType()
                     && this.isLetterConnector(context.getCurrentChar())) {
                 //记录下可能的结束位置
@@ -177,7 +176,7 @@ class LetterSegmenter implements ISegmenter {
     /**
      * 处理纯英文字母输出
      *
-     * @param context
+     * @param context 分词器上下文状态
      * @return
      */
     private boolean processEnglishLetter(AnalyzeContext context) {
@@ -226,7 +225,7 @@ class LetterSegmenter implements ISegmenter {
     /**
      * 处理阿拉伯数字输出
      *
-     * @param context
+     * @param context 分词器上下文状态
      * @return
      */
     private boolean processArabicLetter(AnalyzeContext context) {
@@ -278,7 +277,7 @@ class LetterSegmenter implements ISegmenter {
     /**
      * 判断是否是字母连接符号
      *
-     * @param input
+     * @param input 字符
      * @return
      */
     private boolean isLetterConnector(char input) {

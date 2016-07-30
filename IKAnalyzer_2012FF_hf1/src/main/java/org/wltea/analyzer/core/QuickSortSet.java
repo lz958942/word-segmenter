@@ -50,25 +50,21 @@ class QuickSortSet {
             this.tail = newCell;
             this.size++;
             return true;
-
         } else {
             if (this.tail.compareTo(newCell) == 0) {//词元与尾部词元相同，不放入集合
                 return false;
-
             } else if (this.tail.compareTo(newCell) < 0) {//词元接入链表尾部
                 this.tail.next = newCell;
                 newCell.prev = this.tail;
                 this.tail = newCell;
                 this.size++;
                 return true;
-
             } else if (this.head.compareTo(newCell) > 0) {//词元接入链表头部
                 this.head.prev = newCell;
                 newCell.next = this.head;
                 this.head = newCell;
                 this.size++;
                 return true;
-
             } else {
                 //从尾部上逆
                 Cell index = this.tail;
@@ -77,7 +73,6 @@ class QuickSortSet {
                 }
                 if (index.compareTo(newCell) == 0) {//词元与集合中的词元重复，不放入集合
                     return false;
-
                 } else if (index.compareTo(newCell) < 0) {//词元插入链表中的某个位置
                     newCell.prev = index;
                     newCell.next = index.next;
@@ -149,13 +144,11 @@ class QuickSortSet {
             this.tail = null;
             this.size--;
             return last;
-
         } else if (this.size > 1) {
             Lexeme last = this.tail.lexeme;
             this.tail = this.tail.prev;
             this.size--;
             return last;
-
         } else {
             return null;
         }
@@ -225,6 +218,7 @@ class QuickSortSet {
             this.lexeme = lexeme;
         }
 
+        @Override
         public int compareTo(Cell o) {
             return this.lexeme.compareTo(o.lexeme);
         }

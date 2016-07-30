@@ -30,7 +30,6 @@ import java.util.List;
  */
 public interface Configuration {
 
-
     /**
      * 返回useSmart标志位
      * useSmart =true ，分词器使用智能切分策略， =false则使用细粒度切分
@@ -46,7 +45,6 @@ public interface Configuration {
      * @param useSmart
      */
     void setUseSmart(boolean useSmart);
-
 
     /**
      * 获取主词典路径
@@ -68,7 +66,6 @@ public interface Configuration {
      * @return List<String> 相对类加载器的路径
      */
     List<String> getExtDictionarys();
-
 
     /**
      * 获取扩展停止词典配置路径

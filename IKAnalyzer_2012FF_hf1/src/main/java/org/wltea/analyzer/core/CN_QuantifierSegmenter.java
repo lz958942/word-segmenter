@@ -25,6 +25,7 @@ package org.wltea.analyzer.core;
 
 import org.wltea.analyzer.dic.Dictionary;
 import org.wltea.analyzer.dic.Hit;
+import org.wltea.analyzer.util.Constant;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -35,9 +36,6 @@ import java.util.Set;
  * 中文数量词子分词器
  */
 class CN_QuantifierSegmenter implements ISegmenter {
-
-    //子分词器标签
-    static final String SEGMENTER_NAME = "QUAN_SEGMENTER";
 
     //中文数词
     private static String Chn_Num = "一二两三四五六七八九十零壹贰叁肆伍陆柒捌玖拾百千万亿拾佰仟萬億兆卅廿";//Cnum
@@ -65,7 +63,6 @@ class CN_QuantifierSegmenter implements ISegmenter {
     //待处理的量词hit队列
     private List<Hit> countHits;
 
-
     CN_QuantifierSegmenter() {
         nStart = -1;
         nEnd = -1;
@@ -73,8 +70,9 @@ class CN_QuantifierSegmenter implements ISegmenter {
     }
 
     /**
-     * 分词
+     * @see org.wltea.analyzer.core.ISegmenter#analyze(org.wltea.analyzer.core.AnalyzeContext)
      */
+    @Override
     public void analyze(AnalyzeContext context) {
         //处理中文数词
         this.processCNumber(context);
@@ -84,16 +82,16 @@ class CN_QuantifierSegmenter implements ISegmenter {
         //判断是否锁定缓冲区
         if (this.nStart == -1 && this.nEnd == -1 && countHits.isEmpty()) {
             //对缓冲区解锁
-            context.unlockBuffer(SEGMENTER_NAME);
+            context.unlockBuffer(Constant.Tag.CN_QUANTIFIER_SEGMENTER);
         } else {
-            context.lockBuffer(SEGMENTER_NAME);
+            context.lockBuffer(Constant.Tag.CN_QUANTIFIER_SEGMENTER);
         }
     }
 
-
     /**
-     * 重置子分词器状态
+     * @see org.wltea.analyzer.core.ISegmenter#reset()
      */
+    @Override
     public void reset() {
         nStart = -1;
         nEnd = -1;
@@ -164,7 +162,6 @@ class CN_QuantifierSegmenter implements ISegmenter {
                         if (!hit.isPrefix()) {//不是词前缀，hit不需要继续匹配，移除
                             this.countHits.remove(hit);
                         }
-
                     } else if (hit.isUnmatch()) {
                         //hit不是词，移除
                         this.countHits.remove(hit);
@@ -189,8 +186,6 @@ class CN_QuantifierSegmenter implements ISegmenter {
                 //前缀匹配则放入hit列表
                 this.countHits.add(singleCharHit);
             }
-
-
         } else {
             //输入的不是中文字符
             //清空未成形的量词
@@ -237,7 +232,6 @@ class CN_QuantifierSegmenter implements ISegmenter {
             //输出数词
             Lexeme newLexeme = new Lexeme(context.getBufferOffset(), nStart, nEnd - nStart + 1, Lexeme.TYPE_CNUM);
             context.addLexeme(newLexeme);
-
         }
     }
 }
